@@ -1,33 +1,39 @@
-// import { takeEvery, put, select, debounce } from 'redux-saga/effects';
-// import numberValidator from '../../Logic/numberValidator'
-// import * as CONSTANTS from '../../constants/_constants';
-// import * as actionTypes from '../actionTypes';
-// import axios from 'axios';
+import { takeEvery, put, select, debounce } from 'redux-saga/effects';
+import * as requests from '../logic/requests'
+import * as actionTypes from '../redux/actionTypes';
 
-// function* updatePaymentsLists() {
-//   yield put({ type: actionTypes.IS_REFRESHING, payload: true });
+function* requestUsersLists() {
 
-//   const payload = yield axios
-//     .get(CONSTANTS.PAY_METHODS_URI)
-//     .then(res => res)
-//     .catch(e => {
-//     console.log(e);
-//     return;
-//   });
+  const payload = yield requests.getUsersRequest()
+    .then(res => res)
+    .catch(err => console.log(err));
+  yield put({ type: actionTypes.USERS_LIST, payload: [...payload.data ]})
+}
 
-//   yield put({ type: actionTypes.UPDATE_WITHDRAWALS_LIST, payload: [ ...payload.data.withdraw ] });
-//   yield put({ type: actionTypes.UPDATE_INVOICES_LIST, payload: [ ...payload.data.invoice ] });
-//   yield put({ type: actionTypes.IS_REFRESHING, payload: false });
-// }
+function* deleteUser(id) {
+  yield requests.deleteUserRequest(id.payload)
+    .then(res => res)
+    .catch(err => console.log(err));
+  yield put({ type: actionTypes.UPDATE_USERS_LIST, })
+}
+
+function* editUser(user) {
+  yield requests.editUserRequest(user.payload)
+    .then(res => res)
+    .catch(err => console.log(err));
+  yield put({ type: actionTypes.UPDATE_USERS_LIST, })
+}
+
+function* createUser(user) {
+  yield requests.createUserRequest(user.payload)
+    .then(res => res)
+    .catch(err => console.log(err));
+  yield put({ type: actionTypes.UPDATE_USERS_LIST, })
+}
 
 export default function* sagaWatcher() {
-  // // eslint-disable-next-line no-unused-vars
-  // const action = yield debounce(CONSTANTS.DEBOUNCE_TIMER, actionTypes.RATE_REFRESH, rateRefresh);
-  // // eslint-disable-next-line no-unused-vars
-  // const actionCalculate = yield takeEvery(actionTypes.CALCULATE, calculate)
-  // // eslint-disable-next-line no-unused-vars
-  // const actionBid = yield takeEvery(actionTypes.BID, bid)
-  // yield takeEvery(actionTypes.UPDATE_PAYMENTS_LIST, updatePaymentsLists)
-  // yield takeEvery(actionTypes.UPDATE_CALCULATIONS, isEmptyAmounts)
-  // yield takeEvery(actionTypes.CALCULATE, isEmptyAmounts)
+  yield takeEvery(actionTypes.UPDATE_USERS_LIST, requestUsersLists)
+  yield takeEvery(actionTypes.DELETE_USER, deleteUser)
+  yield takeEvery(actionTypes.EDIT_USER, editUser)
+  yield takeEvery(actionTypes.CREATE_USER, createUser)
 }
