@@ -21,12 +21,22 @@ function Page(props) {
       </div>
       
       <ul className="pagination">
-        <li className={classnames("page-item")}>
-          <Link
-            to={'/' + (props.currentPage - 1)}
-            className="page-link"
-          >Previous </Link>
-        </li>
+        {props.currentPage > 1 ? (
+          <li className={classnames("page-item")}>
+            <Link
+              to={'/' + (props.currentPage - 1)}
+              className="page-link"
+            >Previous </Link>
+          </li>
+        ) : (
+          <li className={classnames("page-item", 'disabled')}>
+            <span
+              className="page-link"
+            >Previous </span>
+          </li>
+          )
+        }
+
         {[...Array(props.pagesTotal)]
           .map((e, index) => index + 1 === props.currentPage ? (
             <li className={classnames("page-item", 'active')}>
@@ -46,12 +56,23 @@ function Page(props) {
             )
           )
         }
-        <li className={classnames("page-item")}>
-          <Link
-            to={'/' + (props.currentPage + 1)}
-            className="page-link"
-          >Next </Link>
-        </li>
+        {props.currentPage < props.pagesTotal ? 
+        (
+          <li className={classnames("page-item")}>
+            <Link
+              to={'/' + (props.currentPage + 1)}
+              className="page-link"
+            >Next </Link>
+          </li>
+        ) : (
+          <li className={classnames("page-item", 'disabled')}>
+            <span
+              className="page-link"
+            >Next </span>
+          </li>
+        ) }
+        
+
       </ul>
     </div>
   )
