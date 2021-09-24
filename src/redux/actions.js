@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const updateUsersList = () => {
-  return { type: actionTypes.UPDATE_USERS_LIST }
+export const requestUsersList = () => {
+  return { type: actionTypes.REQUEST_USERS_LIST }
 }
 
 export const deleteUser = (id) => {

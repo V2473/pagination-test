@@ -9,7 +9,6 @@ import Page from '../Page/Page'
 
 function PaginationWindow() {
   const dispatch =  useDispatch();
-  const updateUsersList = () => dispatch(actions.updateUsersList())
   const usersList = useSelector(state => state.usersList);
   const location = useLocation();
   const currentPage = +location.pathname.slice(1);
@@ -17,8 +16,7 @@ function PaginationWindow() {
   const currenUsersList = usersList.slice((currentPage - 1) * 5, ((currentPage - 1) * 5) + 5);
 
   useEffect(() => {
-    updateUsersList();
-    console.log(location)
+    dispatch(actions.requestUsersList())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

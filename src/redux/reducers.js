@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 
 const usersList = (state = [], action)  => {
   switch(action.type) {
-    case actionTypes.USERS_LIST:
+    case actionTypes.UPDATE_USERS_LIST:
       return action.payload;
     default: return state;
   }
