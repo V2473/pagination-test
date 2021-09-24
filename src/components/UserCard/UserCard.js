@@ -91,6 +91,7 @@ const UserCard = (props) => {
               value={user.name}
               onChange={inputHandler}
               className={classnames('form-control')}
+              placeholder='requaired field'
             ></input>
           </label>
           <br />
@@ -102,6 +103,7 @@ const UserCard = (props) => {
               value={user.surname}
               onChange={inputHandler}
               className={classnames('form-control')}
+              placeholder='requaired field'
             ></input>
           </label>
           <br />
@@ -113,6 +115,7 @@ const UserCard = (props) => {
               value={user.desc}
               onChange={inputHandler}
               className={classnames('form-control')}
+              placeholder='requaired field'
             ></input>   
           </label>
         </form>
