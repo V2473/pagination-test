@@ -3,6 +3,7 @@ import './UserCard.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from "../../redux/actions";
+import classnames from 'classnames';
 
 
 const UserCard = (props) => {
@@ -24,7 +25,7 @@ const UserCard = (props) => {
 
 
   return (
-    <div className="userCard">
+    <div className={classnames('card', "userCard")}>
       <div className="userCard-avatar">
         {user.avatar ? (
           <div className="userCard-avatar-img"/>
@@ -40,7 +41,9 @@ const UserCard = (props) => {
         {user.id ? (
           <>
           {editMode ? '' : (
-              <button onClick={deleteUser}>DELETE</button>
+              <button
+                className={classnames('btn', 'btn-outline-danger')}
+                onClick={deleteUser}>DELETE</button>
             )}
           
             {editMode ? (
@@ -48,15 +51,22 @@ const UserCard = (props) => {
                 <button onClick={() => {
                   setEditMode(false)
                   setUser({...props.user})
-                }}>CANCEL</button>
+                }}
+                className={classnames('btn', 'btn-outline-info')}
+              >CANCEL</button>
                 <button onClick={() => {
                   editUser();
                   setEditMode(false)
                   setUser({...props.user})
-                }}>SAVE</button>
+                }}
+                className={classnames('btn', 'btn-outline-success')}
+                >SAVE</button>
               </>
             ) : (
-              <button onClick={() => setEditMode(true)}>EDIT</button>
+              <button
+                onClick={() => setEditMode(true)}
+                className={classnames('btn', 'btn-outline-warning')}
+              >EDIT</button>
             )}
           </>
         ) : (
@@ -64,7 +74,9 @@ const UserCard = (props) => {
             <button onClick={() =>{
             createUser();
             setUser(prev => ({...prev, name: '', surname: '', desc: ''}))
-            }}>CREATE USER</button>
+            }}
+            className={classnames('btn', 'btn-outline-success')}
+            >CREATE USER</button>
           </>
         )}
       </div>
@@ -79,6 +91,7 @@ const UserCard = (props) => {
               name='name'
               value={user.name}
               onChange={inputHandler}
+              className={classnames('form-control')}
             ></input>
           </label>
           <br />
@@ -89,6 +102,7 @@ const UserCard = (props) => {
               name='surname'
               value={user.surname}
               onChange={inputHandler}
+              className={classnames('form-control')}
             ></input>
           </label>
           <br />
@@ -99,6 +113,7 @@ const UserCard = (props) => {
               name='desc'
               value={user.desc}
               onChange={inputHandler}
+              className={classnames('form-control')}
             ></input>   
           </label>
         </form>

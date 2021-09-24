@@ -3,6 +3,8 @@ import './Page.scss';
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import UserCard from '../UserCard/UserCard';
+import classnames from 'classnames';
+
 
 function Page(props) {
   const emptyUser = {
@@ -10,20 +12,48 @@ function Page(props) {
   }
 
   return (
-    <>
-      <UserCard user={emptyUser} edit={true}></UserCard>
-      {props.users.map(user => (
-        <UserCard user={user} key={user.id}></UserCard>
-      ))}
-      {[...Array(props.pagesTotal)]
-        .map((e, index) => index + 1 === props.currentPage ? (
-            <span key={index + 1}>{props.currentPage}</span> 
-          ) : (
-            <Link to={'/' + (index + 1)} key={index + 1}> {index + 1} </Link>
+    <div className={'page'}>
+      <div className={'page-userCards'}>
+        <UserCard user={emptyUser} edit={true}></UserCard>
+        {props.users.map(user => (
+          <UserCard user={user} key={user.id}></UserCard>
+        ))}
+      </div>
+      
+      <ul className="pagination">
+        <li className={classnames("page-item")}>
+          <Link
+            to={'/' + (props.currentPage - 1)}
+            className="page-link"
+          >Previous </Link>
+        </li>
+        {[...Array(props.pagesTotal)]
+          .map((e, index) => index + 1 === props.currentPage ? (
+            <li className={classnames("page-item", 'active')}>
+              <span
+                key={index + 1}
+                className={classnames("page-link")}
+              >{props.currentPage}</span> 
+            </li>
+            ) : (
+            <li className={classnames("page-item")}>
+              <Link
+                to={'/' + (index + 1)}
+                key={index + 1}
+                className="page-link"
+              >{index + 1} </Link>
+            </li>
+            )
           )
-        )
-      }
-    </>
+        }
+        <li className={classnames("page-item")}>
+          <Link
+            to={'/' + (props.currentPage + 1)}
+            className="page-link"
+          >Next </Link>
+        </li>
+      </ul>
+    </div>
   )
 }
 

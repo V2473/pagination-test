@@ -1,0 +1,17 @@
+.page {
+  margin: 0 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  &-userCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1000px;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
