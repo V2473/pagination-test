@@ -40,27 +40,26 @@ const UserCard = (props) => {
 
         {user.id ? (
           <>
-          {editMode ? '' : (
-              <button
-                className={classnames('btn', 'btn-outline-danger')}
-                onClick={deleteUser}>DELETE</button>
-            )}
-          
             {editMode ? (
               <>
                 <button onClick={() => {
                   setEditMode(false)
                   setUser({...props.user})
                 }}
-                className={classnames('btn', 'btn-outline-info')}
-              >CANCEL</button>
+                  className={classnames('btn', 'btn-outline-info')}
+                >CANCEL</button>
+
                 <button onClick={() => {
                   editUser();
                   setEditMode(false)
                   setUser({...props.user})
                 }}
-                className={classnames('btn', 'btn-outline-success')}
+                  className={classnames('btn', 'btn-outline-success')}
                 >SAVE</button>
+
+              <button
+                  className={classnames('btn', 'btn-outline-danger')}
+                  onClick={deleteUser}>DEL</button>
               </>
             ) : (
               <button
