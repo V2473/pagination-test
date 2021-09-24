@@ -9,6 +9,7 @@ import classnames from 'classnames';
 const UserCard = (props) => {
   const [user, setUser] = useState({ ...props.user })
   const [editMode, setEditMode] = useState(props.edit)
+  const [isEmptyField, setIsEmptyField] = useState(true)
 
   const dispatch =  useDispatch();
   const deleteUser = () => dispatch(actions.deleteUser(user.id))
@@ -18,6 +19,14 @@ const UserCard = (props) => {
   const inputHandler = (e) => {
     setUser(prev => ({ ...prev, [e.target.name]: e.target.value  }))
   }
+
+  useEffect(() => {
+    if( !user.name || !user.surname || !user.desc ) {
+      setIsEmptyField(true)
+    } else {
+      setIsEmptyField(false)
+    }
+  }, [user])
 
   useEffect(() => {
     setUser({ ...props.user })
@@ -54,11 +63,12 @@ const UserCard = (props) => {
                   setEditMode(false)
                   setUser({...props.user})
                 }}
-                  className={classnames('btn', 'btn-outline-success')}
+                  className={classnames('btn', 'btn-success')}
+                  disabled={isEmptyField}
                 >SAVE</button>
 
               <button
-                  className={classnames('btn', 'btn-outline-danger')}
+                  className={classnames('btn', 'btn-danger')}
                   onClick={deleteUser}>DEL</button>
               </>
             ) : (
@@ -74,7 +84,8 @@ const UserCard = (props) => {
             createUser();
             setUser(prev => ({...prev, name: '', surname: '', desc: ''}))
             }}
-            className={classnames('btn', 'btn-outline-success')}
+            className={classnames('btn', 'btn-success')}
+            disabled={isEmptyField}
             >CREATE USER</button>
           </>
         )}
