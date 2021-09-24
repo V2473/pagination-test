@@ -13,8 +13,8 @@ function PaginationWindow() {
   const usersList = useSelector(state => state.usersList);
   const location = useLocation();
   const currentPage = +location.pathname.slice(1);
-  const pagesTotal = Math.floor(usersList.length / 5);
-  const currenUsersList = usersList.slice(currentPage * 5, (currentPage * 5) + 5);
+  const pagesTotal = Math.ceil(usersList.length / 5);
+  const currenUsersList = usersList.slice((currentPage - 1) * 5, ((currentPage - 1) * 5) + 5);
 
   useEffect(() => {
     updateUsersList();
