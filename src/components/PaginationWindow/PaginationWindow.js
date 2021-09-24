@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PaginationWindow.scss';
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
 import * as actions from "../../redux/actions";
 import Page from '../Page/Page'
@@ -32,6 +32,5 @@ function PaginationWindow() {
     </>
   )
 }
-
 
 export default PaginationWindow;

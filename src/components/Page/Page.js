@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Page.scss';
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import UserCard from '../UserCard/UserCard';
 
